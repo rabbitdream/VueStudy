@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Vue CDN</title>
+</head>
+
+<body>
+    <h1>多个Vue实例对象</h1>
+    <div id="vue-app-one">
+        <h2>{{title}}</h2>
+        <Greeting />
+    </div>
+    <div id="vue-app-two">
+        <h2>{{title}}</h2>
+        <Greeting>
+            <Greeting />
+            <!-- App two 修改 App one-->
+            <button @click="changeAppOneTitle">Change app one title</button>
+    </div>
+
+
+    <h1>Fetch请求</h1>
+    <div id="vue-app">
+        <form @submit.prevent="onSubmit">
+            <input type="text" v-model="todo.title">
+            <input type="checkbox" v-model="todo.completed">
+            <input type="submit" value="提交">
+        </form>
+
+        <ul>
+            <li v-for="todo in todos">
+                <p>{{todo.title}}</p>
+                <p>{{todo.completed}}</p>
+            </li>
+        </ul>
+    </div>
+
+</body>
+
+<script src="app.js"></script>
+
+</html>

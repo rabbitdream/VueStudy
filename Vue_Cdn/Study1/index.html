@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Vue CDN</title>
+</head>
+
+<body>
+    <div id="vue-app">
+        <h1>Data binding</h1>
+        <h1>Hello{{name}}</h1>
+        <p>你的微信是：{{wechat}}</p>
+        <!--方法传参-->
+        <p>{{greet('night')}}</p>
+        <p>{{haveLanch()}}</p>
+        <p>
+            <!--属性绑定-->
+            <a v-bind:href="website">百度</a> <!-- v- 指令 -->
+        </p>
+        <!-- <p>{{websiteTag}}</p> -->
+        <p v-html="websiteTag"></p>
+        <p><input type="text" v-bind:value="name" /></p>
+        <h1>Events</h1>
+        <!-- 
+        <button v-on:click="age++">add a year</button>
+        <button v-on:click="age--">subtract a year</button> 
+        -->
+        <!--  
+        <button @click="age++">add a year</button>
+        <button @click="age--">subtract a year</button>
+        -->
+        <button @click="add(1)">add a year</button>
+        <!--方法加不加括号都行-->
+        <button v-on:click="subtract(1)">subtract a year</button>
+        <!--双击事件绑定-->
+        <button v-on:dblclick="add(10)">add 10 year</button>
+        <button v-on:dblclick="subtract(10)">subtract 10 year</button>
+        <p>我的年龄是：{{ age }}</p>
+
+        <!-- mousemove event-->
+        <div id="canvas" v-on:mousemove="updateXY">
+            {{x}},
+            {{y}}
+        </div>
+        <!--时间修饰符-->
+        <p><a @click.prevent="handleClick" href="http://www.baidu.com">百度</a></p>
+
+        <!-- keyBoard 事件-->
+        <label>姓名</label>
+        <input type="text" v-on:keyup.enter="logName" />
+        <label>年龄</label>
+        <input type="text" v-on:keyup.alt.enter="logAge" />
+
+
+        <h1>双向数据绑定 input / select / textarea </h1>
+        <label>姓名</label>
+        <input type="text" v-model="name" />
+        <span>{{name}}</span>
+        <label>年龄</label>
+        <input type="text" v-model.lazy="age" />
+        <span>{{age}}</span>
+
+
+        <h1>ref</h1>
+        <label>性别</label>
+        <input type="text" ref="sex" @keyup="getSex" />
+        <span>{{sex}}</span>
+        <label>身高</label>
+        <input type="text" ref="high" @keyup="getHigh" />
+        <span>{{high}}</span>
+
+        <h1>computed 计算属性</h1>
+
+        <button @click="a++"> Add to A</button>
+        <button @click="b++"> Add to B</button>
+        <p>A-->{{a}}</p>
+        <p>B-->{{b}}</p>
+
+
+        <!-- methods -->
+        <!-- 每次调用，两个方法都会执行 -->
+        <!-- <p>Age + A = {{ addToA() }}</p>
+        <p>Age + B = {{ addToB() }}</p> -->
+
+        <!-- computed -->
+        <!-- 不能加括号 -->
+        <p>Age + A = {{ addToA }}</p>
+        <p>Age + B = {{ addToB }}</p>
+
+
+        <h1>动态绑定样式</h1>
+
+        <h2>示例1 属性绑定</h2>
+        <!-- 动态改变颜色 -->
+        <div v-bind:class="{changeColor:mrChangeColor,changeLength:mrChangeLength}"
+            @click="mrChangeColor = !mrChangeColor , mrChangeLength = !mrChangeLength">
+            <span id="sp1">Hello</span>
+        </div>
+
+        <h2>示例2 计算属性绑定</h2>
+        <button @click="mrChangeColor = !mrChangeColor">ChangeColor</button>
+        <button @click="mrChangeLength = !mrChangeLength">ChangeLength</button>
+        <div v-bind:class="compClasses" @click="mrChangeColor = !mrChangeColor">
+            <span id="sp1">你好</span>
+        </div>
+
+        <h1>v-if指令</h1>
+        <button @click="error = !error">变动error值</button>
+        <button @click="success = !success">变动success值</button>
+        <p v-if="error">error:如果条件为真显示</p>
+        <p v-else-if="success">success:如果条件为真显示</p>
+        <p v-else>others</p>
+
+
+        <h1>v-show指令</h1>
+        <button @click="Error = !Error">Error</button>
+        <button @click="Success = !Success">Success</button>
+        <p v-show="Error">网络连接错误：404</p>
+        <p v-show="Success">网络连接成功：200</p>
+
+        <!-- v-if v-show 两者区别在于 v-if 为假的时候直接把标签干掉  而v-show只是把display属性改为none,标签还在只是不显示 -->
+
+
+        <h1>v-for指令</h1>
+        <!-- {{characters[0]}}
+        {{characters[1]}}
+        {{characters[2]}}
+        {{characters[3]}} -->
+        <ul>
+            <li v-for="(mrCharacter,mrI) in characters">
+                {{mrI}}.{{mrCharacter}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="(user,index) in users">
+                {{index}}.{{user.name}}:{{user.age}}
+            </li>
+        </ul>
+        <template v-for="(user,index) in users">
+            <h3>{{index}}.{{user.name}}</h3>
+            <p>age--{{user.age}}</p>
+        </template>
+
+
+        <!--遍历对象-->
+        <template v-for="(user,index) in users">
+            <div v-for="(val,key) in user">
+                <p>{{key}}-->{{val}}</p>
+            </div>
+        </template>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+
+</html>
